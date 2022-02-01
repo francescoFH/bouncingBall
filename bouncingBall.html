@@ -19,7 +19,18 @@
 
     <script type="text/javascript">
 
+      const Ball = function(x, y, radius) {
+
+        this.color = "black";
+        this.radius = radius;
+        this.x = x;
+        this.y = y;
+
+      };
+
       var context = document.querySelector("canvas").getContext("2d");
+
+      var ball = new Ball(100, 100, 50);
 
       function loop() {
 
@@ -27,6 +38,11 @@
 
         context.canvas.height = document.documentElement.clientHeight;
         context.canvas.width = document.documentElement.clientWidth;
+
+        context.fillStyle = ball.color;
+        context.beginPath();
+        context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+        context.fill();
 
       }
 
