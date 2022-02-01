@@ -22,19 +22,32 @@
       const Ball = function(x, y, radius) {
 
         this.color = "black";
+        this.direction = Math.random() * Math.PI * 2;
         this.radius = radius;
         this.x = x;
         this.y = y;
 
       };
 
+      Ball.prototype = {
+
+        updatePosition:function() {
+
+          this.x += Math.cos(this.direction);
+          this.y += Math.sin(this.direction);
+
+        }
+      };
+
       var context = document.querySelector("canvas").getContext("2d");
 
-      var ball = new Ball(100, 100, 50);
+      var ball = new Ball(100, 100, 10);
 
       function loop() {
 
         window.requestAnimationFrame(loop);
+
+        ball.updatePosition();
 
         context.canvas.height = document.documentElement.clientHeight;
         context.canvas.width = document.documentElement.clientWidth;
