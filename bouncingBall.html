@@ -32,11 +32,38 @@
 
       Ball.prototype = {
 
-        updatePosition:function() {
+        updatePosition:function(width, height) {
 
           this.x += Math.cos(this.direction) * this.speed;
           this.y += Math.sin(this.direction) * this.speed;
 
+          if(this.x - this.radius < 0) {
+
+            this.x = this.radius;
+
+            this.direction = Math.atan2(Math.sin(this.direction), Math.cos(this.direction) * -1);
+
+          } else if (this.x + this.radius > width) {
+
+            this.x = width - this.radius;
+
+            this.direction = Math.atan2(Math.sin(this.direction), Math.cos(this.direction) * -1);
+
+          }
+
+          if(this.y - this.radius < 0) {
+
+            this.y = this.radius;
+
+            this.direction = Math.atan2(Math.sin(this.direction) * -1, Math.cos(this.direction));
+
+          } else if (this.y + this.radius > height) {
+
+            this.y = height - this.radius;
+
+            this.direction = Math.atan2(Math.sin(this.direction) * -1, Math.cos(this.direction));
+
+          }
         }
       };
 
@@ -48,10 +75,13 @@
 
         window.requestAnimationFrame(loop);
 
-        ball.updatePosition();
+        let height = document.documentElement.clientHeight;
+        let width = document.documentElement.clientWidth;
 
-        context.canvas.height = document.documentElement.clientHeight;
-        context.canvas.width = document.documentElement.clientWidth;
+        ball.updatePosition(width, height);
+
+        context.canvas.height = height;
+        context.canvas.width = width;
 
         context.fillStyle = ball.color;
         context.beginPath();
