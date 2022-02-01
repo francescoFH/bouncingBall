@@ -19,7 +19,19 @@
 
     <script type="text/javascript">
 
-      
+      var context = document.querySelector("canvas").getContext("2d");
+
+      function loop() {
+
+        window.requestAnimationFrame(loop);
+
+        context.canvas.height = document.documentElement.clientHeight;
+        context.canvas.width = document.documentElement.clientWidth;
+
+      }
+
+      loop();
+
 
     </script>
 
